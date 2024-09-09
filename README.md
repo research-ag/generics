@@ -1,12 +1,12 @@
-# ... for Motoko
+# Workaround for async function with parametric type in Motoko
 
 ## Overview
 
 ### Links
 
-The package is published on [MOPS](https://mops.one/...) and [GitHub](https://github.com/research-ag/...).
+The package is published on [MOPS](https://mops.one/generics and [GitHub](https://github.com/research-ag/generics).
 
-The API documentation can be found [here](https://mops.one/.../docs).
+The API documentation can be found [here](https://mops.one/generics/docs).
 
 For updates, help, questions, feedback and other requests related to this package join us on:
 
@@ -16,53 +16,60 @@ For updates, help, questions, feedback and other requests related to this packag
 
 ### Motivation
 
-### Interface
+Asynchronous functions, i.e. those whose return type starts with `async` or `async*` cannot have a type parameter in their return type.
+This package provides a workaround.
 
-## Usage
+### Build and test
+
+We need `mops` installed.
+
+```
+mops test
+```
+
+## Example
+
+```
+import Generics "mo:generics";
+
+module M {  
+  public class f_<T>() {
+    let buf : Generics.Buf<[T]> = Generics.Buf<[T]>();
+    public func call(x : T) : async* () {
+      // some code here
+      buf.set([x, x]);
+    };
+    public func result() : [T] = buf.get();
+  };
+};
+
+let f_ = M.f_<Nat>();
+func f(x : Nat) : async* [Nat] {
+  await* f_.call(x);
+  f_.result();
+};
+
+await* f(0);
+```
 
 ### Install with mops
 
 You need `mops` installed. In your project directory run:
 ```
-mops add <...>
+mops add generics
 ```
 
 In the Motoko source file import the package as:
 ```
-import .. "mo:..";
+import Generics "mo:generics";
 ```
-
-### Example
-
-### Build & test
-
-We need up-to-date versions of `node`, `moc` and `mops` installed.
-
-Then run:
-```
-git clone git@github.com:research-ag/....git
-mops install
-mops test
-```
-
-### Benchmark
-
-Run
-```
-mops bench --replica pocket-ic
-```
-
-## Design
-
-## Implementation notes
 
 ## Copyright
 
-MR Research AG, 2023-2024
+MR Research AG, 2024
 ## Authors
 
-Main author:\
-Contributors:
+Main author: Timo Hanke
 ## License 
 
 Apache-2.0

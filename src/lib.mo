@@ -1,10 +1,25 @@
-/// ...
+/// Workaround for async functions with parametric type.
 ///
-/// Copyright: 2023-2024 MR Research AG
-/// Main author: 
+/// Copyright: 2024 MR Research AG
+/// Main author: Timo Hanke 
 /// Contributors: 
 
-import Prim "mo:prim";
+import Debug "mo:base/Debug";
 
-module {
+module Generics {
+  public class Buf<T>() {
+    var result_ : ?T = null;
+    public func set(x : T) {
+      result_ := ?x;
+    };
+    public func get() : T {
+      switch (result_) {   
+        case (?r) {
+          result_ := null;
+          r;
+        };
+        case (null) Debug.trap("no result present");
+      };
+    };    
+  };
 };

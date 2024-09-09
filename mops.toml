@@ -1,18 +1,17 @@
 [package]
-name = ""
+name = "generics"
 version = "0.0.1"
-description = ""
-repository = "https://github.com/research-ag/..."
-keywords = [ ]
+description = "Helper for asynchronous generics"
+repository = "https://github.com/research-ag/generics"
+keywords = [ "async", "parametric", "type", "parameter" ]
 license = "Apache-2.0"
 
 [dependencies]
-base = "0.11.1"
+base = "0.12.1"
 
 [dev-dependencies]
 test = "2.0.0"
 bench = "1.0.0"
 
 [toolchain]
-moc = "0.11.1"
-pocket-ic = "1.0.0"
+moc = "0.12.1"
