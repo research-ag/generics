@@ -10,7 +10,10 @@ module Generics {
   public class Buf<T>() {
     var result_ : ?T = null;
     public func set(x : T) {
-      result_ := ?x;
+      switch (result_) {
+        case (null) result_ := ?x;
+        case (?_) Debug.trap("old result still present");
+      };
     };
     public func get() : T {
       switch (result_) {   

@@ -1,6 +1,6 @@
 [package]
 name = "generics"
-version = "0.0.1"
+version = "0.0.2"
 description = "Helper for asynchronous generics"
 repository = "https://github.com/research-ag/generics"
 keywords = [ "async", "parametric", "type", "parameter" ]

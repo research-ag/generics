@@ -29,6 +29,23 @@ mops test
 
 ## Example
 
+The following code is desired but not allowed:
+
+```
+module M {
+  public func f<T>(x : T) : async* [T] { 
+    // some code here
+    [x, x] 
+  };
+};
+
+let f = M.f<Nat>;
+
+await* f(0); // => [0, 0]
+```
+
+Instead, we have to do this:
+
 ```
 import Generics "mo:generics";
 
@@ -49,7 +66,7 @@ func f(x : Nat) : async* [Nat] {
   f_.result();
 };
 
-await* f(0);
+await* f(0); // => [0, 0]
 ```
 
 ### Install with mops
