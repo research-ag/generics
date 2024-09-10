@@ -1,10 +1,10 @@
-# Workaround for async function with parametric type in Motoko
+# Workaround for async functions with parametric type in Motoko
 
 ## Overview
 
 ### Links
 
-The package is published on [MOPS](https://mops.one/generics and [GitHub](https://github.com/research-ag/generics).
+The package is published on [MOPS](https://mops.one/generics) and [GitHub](https://github.com/research-ag/generics).
 
 The API documentation can be found [here](https://mops.one/generics/docs).
 
@@ -16,7 +16,7 @@ For updates, help, questions, feedback and other requests related to this packag
 
 ### Motivation
 
-Asynchronous functions, i.e. those whose return type starts with `async` or `async*` cannot have a type parameter in their return type.
+Asynchronous functions, i.e. those whose return type starts with `async` or `async*`, cannot have a type parameter in their return type.
 This package provides a workaround.
 
 ### Build and test
@@ -28,6 +28,23 @@ mops test
 ```
 
 ## Example
+
+The following code is desired but not allowed:
+
+```
+module M {
+  public func f<T>(x : T) : async* [T] { 
+    // some code here
+    [x, x] 
+  };
+};
+
+let f = M.f<Nat>;
+
+await* f(0); // => [0, 0]
+```
+
+Instead, with the `generics` package, we can do this:
 
 ```
 import Generics "mo:generics";
@@ -49,7 +66,7 @@ func f(x : Nat) : async* [Nat] {
   f_.result();
 };
 
-await* f(0);
+await* f(0); // => [0, 0]
 ```
 
 ### Install with mops
