@@ -60,11 +60,12 @@ module M {
   };
 };
 
-let f_ = M.f_<Nat>();
-func f(x : Nat) : async* [Nat] {
-  await* f_.call(x);
-  f_.result();
-};
+let f = M.f_<Nat>() |> (
+  func(x : Nat) : async* [Nat] {
+    await* _.call(x);
+    _.result();
+  }
+);
 
 await* f(0); // => [0, 0]
 ```

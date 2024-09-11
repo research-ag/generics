@@ -1,6 +1,6 @@
 import Generics "../src";
 
-module M {  
+module M {
   public class f_<T>() {
     let buf = Generics.Buf<[T]>();
     public func call(x : T) : async* () {
@@ -11,10 +11,11 @@ module M {
   };
 };
 
-let f_ = M.f_<Nat>();
-func f(x : Nat) : async* [Nat] {
-  await* f_.call(x);
-  f_.result();
-};
+let f = M.f_<Nat>() |> (
+  func(x : Nat) : async* [Nat] {
+    await* _.call(x);
+    _.result();
+  }
+);
 
 assert (await* f(0)) == [0, 0];
