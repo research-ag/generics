@@ -1,5 +1,11 @@
 # Generics changelog
 
+## 0.0.4
+
+* Remove unused dev-dependency
+* Bump core dependency
+* Release under MIT license
+
 ## 0.0.3
 
 * Switch from base to core 2.0.0
