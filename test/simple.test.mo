@@ -1,6 +1,6 @@
 import Generics "../src";
 
-module M {  
+module M {
   public class f_<T>() {
     let buf = Generics.Buf<[T]>();
     public func call(x : T) : async* () {

@@ -10,9 +10,9 @@ The API documentation can be found [here](https://mops.one/generics/docs).
 
 For updates, help, questions, feedback and other requests related to this package join us on:
 
-* [OpenChat group](https://oc.app/2zyqk-iqaaa-aaaar-anmra-cai)
-* [Twitter](https://twitter.com/mr_research_ag)
-* [Dfinity forum](https://forum.dfinity.org/)
+- [OpenChat group](https://oc.app/2zyqk-iqaaa-aaaar-anmra-cai)
+- [Twitter](https://twitter.com/mr_research_ag)
+- [Dfinity forum](https://forum.dfinity.org/)
 
 ### Motivation
 
@@ -33,15 +33,16 @@ The following code is desired but not allowed:
 
 ```motoko
 module M {
-  public func f<T>(x : T) : async* [T] { 
+  public func f<T>(x : T) : async* [T] {
     // some code here
-    [x, x] 
+    [x, x];
   };
 };
 
 let f = M.f<Nat>;
 
 await* f(0); // => [0, 0]
+
 ```
 
 Instead, with the `generics` package, we can do this:
@@ -49,7 +50,7 @@ Instead, with the `generics` package, we can do this:
 ```motoko
 import Generics "mo:generics";
 
-module M {  
+module M {
   public class f_<T>() {
     let buf : Generics.Buf<[T]> = Generics.Buf<[T]>();
     public func call(x : T) : async* () {
@@ -67,26 +68,42 @@ func f(x : Nat) : async* [Nat] {
 };
 
 await* f(0); // => [0, 0]
+
 ```
 
 ### Install with mops
 
 You need `mops` installed. In your project directory run:
+
 ```sh
 mops add generics
 ```
 
 In the Motoko source file import the package as:
+
 ```motoko
 import Generics "mo:generics";
+
+```
+
+## Development
+
+### Formatting
+
+To format the code, run:
+
+```bash
+npx -y prettier --plugin prettier-plugin-motoko --write '**/*.{mo,json,md}'
 ```
 
 ## Copyright
 
 MR Research AG, 2024
+
 ## Authors
 
 Main author: Timo Hanke
-## License 
+
+## License
 
 MIT
