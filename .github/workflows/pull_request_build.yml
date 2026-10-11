@@ -3,6 +3,9 @@ on:
   pull_request:
     types: [synchronize, opened, reopened, ready_for_review, unlabeled]
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -10,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - name: Install mops
         uses: caffeinelabs/setup-mops@v1
@@ -23,4 +28,19 @@ jobs:
           $(mops toolchain bin moc) --version
 
       - name: Run tests
-        run: mops test
+        run: mops test --locked
+
+  fmt:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: latest
+      - name: Prettier Check
+        run: |
+          npm install prettier prettier-plugin-motoko --no-save
+          npx -y prettier --plugin prettier-plugin-motoko --check '**/*.{mo,json,md}'
