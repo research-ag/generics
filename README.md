@@ -93,7 +93,8 @@ import Generics "mo:generics";
 To format the code, run:
 
 ```bash
-npx -y prettier --plugin prettier-plugin-motoko --write '**/*.{mo,json,md}'
+npm install --no-save prettier prettier-plugin-motoko
+npx prettier --plugin prettier-plugin-motoko --write '**/*.{mo,json,md}'
 ```
 
 ## Copyright
